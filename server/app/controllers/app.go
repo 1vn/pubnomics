@@ -74,5 +74,6 @@ func (c App) Index(v string) revel.Result {
 
 	wg.Wait()
 
+	c.Response.Out.Header().Add("Access-Control-Allow-Origin", "*")
 	return c.RenderJson(data)
 }
