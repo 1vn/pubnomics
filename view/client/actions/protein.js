@@ -4,7 +4,8 @@ import {
 } from '../constants/protein.js';
 import {
 	closeModal,
-	openSidebar
+	openSidebar,
+	selectNode,
 } from './ui.js';
 import {
 	changeSearchPost,
@@ -34,6 +35,7 @@ export function pickResult(data) {
 		dispatch(pickResultData(data));
 		const previousPickedData = getState().proteinReducer.currentlyClicked;
 		dispatch(changeSearchPost(null, 'p.' + previousPickedData.data + previousPickedData.id + data));
+		dispatch(selectNode(previousPickedData.id));
 		dispatch(submitSearch('p.' + previousPickedData.data + previousPickedData.id + data));
 		dispatch(openSidebar());
 	}
