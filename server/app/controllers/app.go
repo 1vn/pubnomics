@@ -133,7 +133,7 @@ func arupFetch(variant string) VariantDataSource {
 
 func clinVitaeFetch(variant string) VariantDataSource {
 	vData := VariantDataSource{}
-
+	vData.Name = "ClinVitae"
 	rows, err := app.DB.Query(`
 		select name, url, result from data 
 		where lower(variant)=lower($1)
