@@ -4,9 +4,13 @@ import randomColor from 'randomcolor';
 
 const proteinBlockData = 'OPO';
 
-function ProteinBlock(props) {
+function ProteinBlock({ id, onClick, isSelected }) {
   return (
-    <div className="proteinBlockSection">
+    <div
+      className={`proteinBlockSection ${isSelected ? 'selected' : ''}`}
+      id={id}
+      onClick={() => onClick(id)}
+    >
       {Array.from(proteinBlockData).map((each, index) => {
         return (
           <div
@@ -15,7 +19,9 @@ function ProteinBlock(props) {
           style={{
             backgroundColor: randomColor(),
           }}
-          />
+          >
+            {each}
+          </div>
         );
       })}
     </div>

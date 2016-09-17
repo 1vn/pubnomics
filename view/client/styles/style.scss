@@ -2,6 +2,10 @@
 @import '~bourbon/app/assets/stylesheets/bourbon';
 @import '~bourbon-neat/app/assets/stylesheets/neat';
 
+body{
+    scroll-behavior: smooth;
+}
+
 ::selection {
   background: #ffb7b7; /* WebKit/Blink Browsers */
 }
@@ -33,15 +37,13 @@
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
   border: 1px solid #CCC;
-}
-
-.proteinSearchBarText svg {
-  position: relative;
-  bottom: 5px;
-}
-
-.proteinSearchBarText path {
-  fill: #A7ADB5;
+  & svg {
+    position: relative;
+    bottom: 5px;
+  }
+  & path {
+    fill: #A7ADB5;
+  }
 }
 
 .proteinSearchBar {
@@ -52,10 +54,9 @@
   border: 1px solid #CCC;
   border-right: none;
   padding: 10px;
-}
-
-.proteinSearchBar:focus {
-  outline: 0;
+  &:focus {
+    outline: 0;
+  }
 }
 
 .proteinElement {
@@ -73,22 +74,63 @@
   width: 160px;
   justify-content: center;
   align-items: center;
-}
-
-.proteinBlockSection:hover {
-  background-color: #F9FAFB;
-}
-
-.proteinBlockSection:hover .eachProtein {
-  height: 100px;
-  transition: 0.25s;
+  padding: 0 10px;
+  &:hover {
+    background-color: #F9FAFB;
+    & .eachProtein {
+      height: 100px;
+      transition: 0.25s;
+      color: rgba(255, 255, 255, 1);
+      opacity: 1;
+    }
+  }
+  &.selected {
+    .eachProtein {
+      opacity: 1;
+    }
+  }
 }
 
 .eachProtein {
   height: 80px;
   width: 40px;
-  margin: 0 5px;
   flex: 1;
   border-radius: 20px;
   transition: 0.25s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.3);
+  opacity: 0.3;
+}
+
+.sidebarElement {
+  width: 400px;
+  height: 100%;
+  position: absolute;
+  background-color: white;
+  z-index: 2;
+  border-right: 1px solid #CCC;
+  left: -400px;
+  transition: 0.4s;
+  &.open {
+    left: 0px;
+    transition: 0.4s;
+  }
+}
+
+.sidebarCloseButton {
+  background-color: transparent;
+  float: right;
+  border: none;
+  height: 40px;
+  width: 40px;
+  border-radius: 40px;
+  margin: 15px;
+  & path {
+    fill: #CCC;
+  }
+  &:focus {
+    outline: 0;
+  }
 }
