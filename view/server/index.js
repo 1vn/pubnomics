@@ -1,15 +1,11 @@
 import express from 'express';
 import http from 'http';
-import bodyParser from 'body-parser';
-import morgan from 'morgan';
 import mongoose from 'mongoose';
 
 import webpack from 'webpack';
 import webpackDevOptions from '../webpack.config.dev';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-
-import api from './api';
 
 // Declaring express app
 const app = express();
@@ -19,12 +15,12 @@ const app = express();
 
 // Logging
 // Use 'dev' instead for colored concise output
-app.use(morgan('combined'))
+// app.use(morgan('combined'))
 // bodyParser setting this server for JSON API usage
-app.use(bodyParser.json({ type: '*/*' }));
+// app.use(bodyParser.json({ type: '*/*' }));
 
 // API
-api(app);
+// api(app);
 
 // Webpack shit
 if(process.env.NODE_ENV === "production"){

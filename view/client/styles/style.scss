@@ -1,3 +1,94 @@
 @import 'lib/normalize';
 @import '~bourbon/app/assets/stylesheets/bourbon';
 @import '~bourbon-neat/app/assets/stylesheets/neat';
+
+::selection {
+  background: #ffb7b7; /* WebKit/Blink Browsers */
+}
+
+.mainAppContainer {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.searchBar {
+  flex: 1;
+  border-bottom: 1px solid #EEE;
+  display: flex;
+}
+
+.searchBarContainer {
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.proteinSearchBarText {
+  height: 40px;
+  padding: 15px;
+  background-color: #F9FAFB;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border: 1px solid #CCC;
+}
+
+.proteinSearchBarText svg {
+  position: relative;
+  bottom: 5px;
+}
+
+.proteinSearchBarText path {
+  fill: #A7ADB5;
+}
+
+.proteinSearchBar {
+  height: 40px;
+  width: 400px;
+  border-bottom-left-radius: 4px;
+  border-top-left-radius: 4px;
+  border: 1px solid #CCC;
+  border-right: none;
+  padding: 10px;
+}
+
+.proteinSearchBar:focus {
+  outline: 0;
+}
+
+.proteinElement {
+  flex: 5;
+  display: flex;
+  overflow: scroll;
+}
+
+.proteinElement::-webkit-scrollbar { 
+    display: none; 
+}
+
+.proteinBlockSection {
+  display: flex;
+  width: 160px;
+  justify-content: center;
+  align-items: center;
+}
+
+.proteinBlockSection:hover {
+  background-color: #F9FAFB;
+}
+
+.proteinBlockSection:hover .eachProtein {
+  height: 100px;
+  transition: 0.25s;
+}
+
+.eachProtein {
+  height: 80px;
+  width: 40px;
+  margin: 0 5px;
+  flex: 1;
+  border-radius: 20px;
+  transition: 0.25s;
+}

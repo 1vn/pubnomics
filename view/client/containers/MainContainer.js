@@ -1,16 +1,22 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
+import SearchBar from '../components/SearchBar';
+import ProteinBlock from '../components/ProteinBlock';
 import { connect } from 'react-redux'; 
-import * as testActions from '../actions/testActions';
 import '../styles/style.scss';
+
+const bullshit = 'adawdawdawdawdawdawdwa';
 
 const MainContainer = React.createClass({
   render () {
     return (
-      <div>
-      <div>Hello World</div>
-      <button onClick={() => this.props.actions.testAction()}>Click Me</button>
-      <h1>{this.props.count}</h1>
+      <div className="mainAppContainer">
+        <div className="searchBar">
+          <SearchBar />
+        </div>
+        <div className="proteinElement">
+          {Array.from(bullshit).map((each) => <ProteinBlock /> )}
+        </div>
       </div>
     )
   }
@@ -18,13 +24,13 @@ const MainContainer = React.createClass({
 
 function mapStateToProps(state) {
   return {
-    count: state.testReducer
+    // count: state.testReducer
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(testActions, dispatch),
+    // actions: bindActionCreators(testActions, dispatch),
   }
 }
 
