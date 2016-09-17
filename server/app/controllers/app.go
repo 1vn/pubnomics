@@ -2,10 +2,12 @@ package controllers
 
 import (
 	"fmt"
+	"log"
 	"regexp"
 	"strings"
 	"sync"
 
+	"github.com/1vn/pubnomics/server/app"
 	"github.com/PuerkitoBio/goquery"
 	"github.com/revel/revel"
 )
@@ -114,6 +116,7 @@ func arupFetch(variant string) VariantDataSource {
 	tds := doc.Find(".tabledata").Find("td")
 
 	if tds.Length() < 5 {
+
 		return vData
 	}
 
@@ -128,11 +131,45 @@ func arupFetch(variant string) VariantDataSource {
 	return vData
 }
 
+func clinVitaeFetch(variant string) VariantDataSource {
+	vData := VariantDataSource{}
+	vData.Name = "ClinVitae"
+	rows, err := app.DB.Query(`
+		select name, url, result from data 
+		where lower(variant)=lower($1)
+		limit 1
+		`, variant)
+
+	if err != nil {
+		log.Println(err)
+		return vData
+	}
+
+	defer rows.Close()
+
+	for rows.Next() {
+		err = rows.Scan(&vData.Name, &vData.URL, &vData.Result)
+		if strings.Contains(vData.Result, "pathogenic") || strings.Contains(vData.Result, "Pathogenic") {
+			vData.Result = "Pathogenic"
+		} else {
+			vData.Result = "Benign"
+		}
+		log.Println(err)
+	}
+
+	return vData
+}
+
 func (c App) Index(v string) revel.Result {
+
 	data := []*VariantDataSource{}
 
+	if len(v) < 8 {
+		return c.RenderJson(data)
+	}
+
 	var wg sync.WaitGroup
-	wg.Add(2)
+	wg.Add(3)
 	go func() {
 		defer wg.Done()
 		vData := clinVarFetch(v)
@@ -142,6 +179,12 @@ func (c App) Index(v string) revel.Result {
 	go func() {
 		defer wg.Done()
 		vData := arupFetch(v)
+		data = append(data, &vData)
+	}()
+
+	go func() {
+		defer wg.Done()
+		vData := clinVitaeFetch(v)
 		data = append(data, &vData)
 	}()
 

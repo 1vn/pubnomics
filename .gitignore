@@ -2,3 +2,13 @@
 .DS_Store
 
 server/conf/app.conf
+
+server/root.key
+
+server/root.cert
+
+*.json
+
+server/root.crt
+
+server/conf/secrets.go
