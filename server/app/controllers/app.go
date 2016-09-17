@@ -161,7 +161,12 @@ func clinVitaeFetch(variant string) VariantDataSource {
 }
 
 func (c App) Index(v string) revel.Result {
+
 	data := []*VariantDataSource{}
+
+	if len(v) < 8 {
+		return c.RenderJson(data)
+	}
 
 	var wg sync.WaitGroup
 	wg.Add(3)
