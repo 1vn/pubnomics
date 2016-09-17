@@ -54,7 +54,7 @@ func clinVarFetch(variant string) VariantDataSource {
 				return
 			}
 
-			vData.Result = deepDoc.Find("#linkinpagenavtoclinassertab").Text()
+			vData.Result = deepDoc.Find(".linkinpagenavtoclinassertab").Text()
 		}
 	})
 
