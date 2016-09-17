@@ -1,2 +1,4 @@
 
 .DS_Store
+
+server/conf/app.conf
