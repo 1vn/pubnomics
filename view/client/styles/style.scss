@@ -1,9 +1,17 @@
 @import 'lib/normalize';
+@import 'lib/react-virtual';
 @import '~bourbon/app/assets/stylesheets/bourbon';
 @import '~bourbon-neat/app/assets/stylesheets/neat';
 
 body{
     scroll-behavior: smooth;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+}
+
+a {
+  text-decoration: none;
+  color: black;
 }
 
 ::selection {
@@ -75,6 +83,8 @@ body{
   justify-content: center;
   align-items: center;
   padding: 0 10px;
+  flex-direction: column;
+  text-transform: uppercase;
   &:hover {
     background-color: #F9FAFB;
     & .eachProtein {
@@ -83,12 +93,27 @@ body{
       color: rgba(255, 255, 255, 1);
       opacity: 1;
     }
-  }
-  &.selected {
-    .eachProtein {
+    & .proteinName {
       opacity: 1;
+      transition: 0.4s;
     }
   }
+  &.selected {
+    background-color: #F9FAFB;
+    .eachProtein {
+      opacity: 1;
+      color: #FFF;
+    }
+  }
+}
+
+.proteinSection {
+  display: flex;
+  flex-direction: row;
+}
+
+.proteinName {
+  opacity: 0;
 }
 
 .eachProtein {
@@ -108,14 +133,37 @@ body{
   width: 400px;
   height: 100%;
   position: absolute;
-  background-color: white;
+  background-color: #F9FAFB;
   z-index: 2;
   border-right: 1px solid #CCC;
   left: -400px;
   transition: 0.4s;
+  display: flex;
+  flex-direction: column;
   &.open {
     left: 0px;
     transition: 0.4s;
+  }
+}
+
+.sidebarNavigation {
+  flex: 1;
+  background-color: white;
+  border-bottom: 1px solid #CCC;
+}
+
+.sidebarContent {
+  flex: 10;
+  display: flex;
+}
+
+.sidebarContentContainer {
+  margin: 15px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  h2 {
+    font-weight: 400;
   }
 }
 
@@ -133,4 +181,128 @@ body{
   &:focus {
     outline: 0;
   }
+}
+
+.sidebarCard {
+  flex: 1;
+  max-height: 250px;
+  background-color: #FFF;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+}
+
+.sidebarCardStrand {
+  flex: 1;
+  min-width: 20px;
+}
+
+.sidebarCardContent {
+  flex: 15;
+  display: flex;
+}
+
+.sidebarCardContentContainer {
+  margin: 10px 15px;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  word-wrap: break-word;
+  justify-content: center;
+  h3, p {
+    margin: 0;
+  }
+  p {
+    margin: 5px 0px;
+    &:first {
+      margin-top: 0px;
+    }
+  }
+  h3 {
+    margin: 0;
+    font-weight: 400;
+  }
+}
+
+.subtitle {
+  color: #707070;
+  font-size: 14px;
+}
+
+
+.spinner {
+  background: #ebeef0;
+  display: inline;
+  height: 24px;
+  width: 24px;
+  border: 6px solid #d3dbe2;
+  border-top-color: #ebeef0;
+  border-radius: 100%;
+  -webkit-animation: rotation 1.5s infinite linear 0.25s;
+          animation: rotation 1.5s infinite linear 0.25s;
+  opacity: 0;
+}
+
+@keyframes rotation {
+  from {
+    opacity: 1;
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: rotate(359deg);
+            transform: rotate(359deg);
+  }
+}
+
+.modalBackground {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  background-color: rgba(0,0,0,0.3);
+  align-items: center;
+  justify-content: center;
+}
+
+.modalElement {
+  flex: 1;
+  max-width: 75%;
+  height: 600px;
+  border: 1px solid #CCC;
+  background-color: white;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+}
+
+.modalNavigation {
+  flex: 1;
+  display: flex;
+  h3 {
+    flex: 1;
+    margin: 30px 20px;
+    font-weight: 400;
+  }
+}
+
+.modalContent {
+  flex: 12;
+  display: flex;
+  overflow: scroll;
+  .modalContentContainer {
+    margin: 15px;
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.disabled {
+  pointer-events: none;
+  cursor: default;
+  color: #EEE;
 }

@@ -37,18 +37,22 @@
     "webpack-hot-middleware": "^2.10.0"
   },
   "dependencies": {
+    "axios": "^0.14.0",
     "body-parser": "^1.15.1",
     "express": "^4.13.4",
     "mongoose": "^4.4.17",
     "randomcolor": "^0.4.4",
     "react": "^15.0.2",
+    "react-addons-shallow-compare": "^15.3.1",
     "react-dom": "^15.0.2",
+    "react-list": "^0.8.0",
     "react-redux": "^4.4.5",
     "react-router": "^2.4.0",
     "react-scroll": "^1.4.0",
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
     "scroll-iv": "^1.0.2",
+    "scroll-to-element": "^2.0.0",
     "smoothscroll": "^0.2.2"
   }
 }

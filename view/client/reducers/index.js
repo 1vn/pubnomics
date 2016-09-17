@@ -1,4 +1,8 @@
 import { combineReducers } from 'redux';
+import mainReducer from './main.js';
+import uiReducer from './ui.js';
+import searchReducer from './search.js';
+import proteinReducer from './protein.js';
 
 // empty reducer. COMMENT OUT WHEN YOU ADD YOUR OWN!
 const initialState = (state = true, action) => {
@@ -20,6 +24,10 @@ const initialState = (state = true, action) => {
  */
 const rootReducer = combineReducers({
   initialState,
+  mainReducer,
+  uiReducer,
+  searchReducer,
+  proteinReducer,
 });
 
 export default rootReducer;
