@@ -111,7 +111,13 @@ func arupFetch(variant string) VariantDataSource {
 		return vData
 	}
 
-	s := doc.Find(".tabledata").Find("td").Get(4).FirstChild.Data
+	tds := doc.Find(".tabledata").Find("td")
+
+	if tds.Length() < 5 {
+		return vData
+	}
+
+	s := tds.Get(4).FirstChild.Data
 	vData.URL = searchLink
 
 	vData.Result = "Benign"
