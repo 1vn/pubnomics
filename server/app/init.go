@@ -1,6 +1,29 @@
 package app
 
-import "github.com/revel/revel"
+import (
+	"database/sql"
+	"fmt"
+	"log"
+
+	"github.com/1vn/pubnomics/server/conf"
+	_ "github.com/lib/pq"
+	"github.com/revel/revel"
+)
+
+var DB *sql.DB
+
+func InitDB() {
+	connstring := fmt.Sprintf("postgres://%s@%s:%d/%s?sslcert=%s&sslkey=%s", conf.DB_USER, conf.DB_HOST, conf.DB_PORT, conf.DB_NAME, conf.DB_ROOT_CERT_PATH, conf.DB_ROOT_KEY_PATH)
+	log.Println(connstring)
+	var err error
+	DB, err = sql.Open("postgres", connstring)
+	if err != nil {
+		revel.INFO.Println("DB Error", err)
+		return
+	}
+	DB.SetMaxOpenConns(30)
+	revel.INFO.Println("DB Connected")
+}
 
 func init() {
 	// Filters is the default set of global filters.
@@ -18,6 +41,8 @@ func init() {
 		revel.CompressFilter,          // Compress the result.
 		revel.ActionInvoker,           // Invoke the action.
 	}
+
+	revel.OnAppStart(InitDB)
 
 	// register startup functions with OnAppStart
 	// ( order dependent )
