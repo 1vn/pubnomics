@@ -11,6 +11,7 @@ import * as searchActions from '../actions/search.js';
 import * as proteinActions from '../actions/protein.js';
 import { connect } from 'react-redux';
 import { aminoMapping, proteinResults } from '../constants/amino.js';
+import { Collection } from 'react-virtualized';
 import '../styles/style.scss';
 
 const positionRegex = new RegExp(/p\.[a-zA-z]{3}(\d+)/);
@@ -23,6 +24,23 @@ class MainContainer extends React.Component {
     this.onSearch = this.onSearch.bind(this);
     this.onClickProtein = this.onClickProtein.bind(this);
     this.onClickResult = this.onClickResult.bind(this);
+    this.scrollIntoView = this.scrollIntoView.bind(this);
+    this.handleScrollNumber = this.handleScrollNumber.bind(this);
+  }
+
+  handleScrollNumber() {
+    const x = Math.ceil((document.getElementsByClassName('proteinElement')[0].scrollLeft / 140) / 25) * 25;
+    if (x % 50 === 0) {
+      this.props.actions.scrolledTo(x);
+    }
+  }
+
+  componentDidMount() {
+    document.body.addEventListener('scroll', this.handleScrollNumber, { passive: true });
+  }
+
+  componentWillUnmount() {
+    document.body.removeEventListener('scroll', this.handleScrollNumber, { passive: true });
   }
 
   onClickProtein(type, id) {
@@ -39,14 +57,16 @@ class MainContainer extends React.Component {
     this.props.actions.selectNode(false);
   }
 
+  scrollIntoView() {
+    document.getElementById(''+this.props.selectedNode).scrollIntoView({ behavior: 'smooth'});
+  }
+
   onSearch() {
   	const id = Number(this.props.searchText.match(positionRegex)[1]);
-  	document.getElementById(id > this.props.selectedNode ? id + 2 : id - 6).scrollIntoView({
-  		behavior: 'smooth'
-  	});
   	this.props.actions.selectNode(id);
-  	this.props.actions.openSidebar()
+  	this.props.actions.openSidebar();
   	this.props.actions.submitSearch(this.props.searchText);
+    setTimeout(this.scrollIntoView, 200);
   }
 
   renderProtein(each, index) {
@@ -92,9 +112,10 @@ class MainContainer extends React.Component {
           	value={this.props.searchText}
           	onSearch={this.onSearch}
           />
+          <h3 className="scrollToNumber">{this.props.scrollToNumber}</h3>
         </div>
         <div className="proteinElement">
-          {this.props.brca1.map((each, index) => this.renderProtein(each, index))}
+          {this.props.brca1.map((each, index) => this.renderProtein(each, index + 1))}
         </div>
       </div>
     )
@@ -115,6 +136,7 @@ function mapStateToProps(state) {
     searchData: state.searchReducer.searchData,
     selectedInitialData: state.proteinReducer.currentlyClicked,
     selectedResultingData: state.proteinReducer.resultClicked,
+    scrollToNumber: state.uiReducer.currentNumber,
   }
 }
 

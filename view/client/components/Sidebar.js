@@ -8,6 +8,22 @@ class SideBar extends React.Component {
   constructor() {
     super();
     this.onClickBackground = this.onClickBackground.bind(this);
+    this.onEsc = this.onEsc.bind(this);
+  }
+
+  onEsc(e) {
+    e = e || window.event;
+    if (e.keyCode === 27) {
+      this.props.closeSidebar();
+    }
+  }
+
+  componentDidMount() {
+    document.body.addEventListener('keydown', this.onEsc);
+  }
+
+  componentWillUnmount() {
+    document.body.removeEventListener('keydown', this.onEsc);
   }
 
   onClickBackground(e) {

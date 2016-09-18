@@ -11,8 +11,15 @@ function determineColor(result) {
 
 }
 
-function Card({ data }) {
-	return (
+class Card extends React.Component {
+	shouldComponentUpdate() {
+		return false;
+	}
+
+
+	render() {
+		const { data } = this.props;
+		return (
 		<div className="sidebarCard">
 			<div className="sidebarCardStrand" style={{
 				backgroundColor: determineColor(data.result)
@@ -29,6 +36,7 @@ function Card({ data }) {
 			</div>
 		</div>
 	);
+	}
 }
 
 export default Card;

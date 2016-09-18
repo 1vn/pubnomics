@@ -46,7 +46,10 @@ class Modal extends React.Component {
 				      }}
 				>
 				<div className="modalNavigation">
-					<h3>Pick your resulting protein</h3>
+					<div style={{ flex: 1 }}>
+						<h3>Pick your resulting protein</h3>
+						<p>{this.props.picked.data}{this.props.picked.id}</p>
+					</div>
 					<Button
 				        className="sidebarCloseButton"
 				        onClick={() => this.props.onClose()}
@@ -73,6 +76,7 @@ class Modal extends React.Component {
 					        data={each}
 					        typeOfProtein={each}
 					        onClick={() => this.props.onPickResult(each)}
+					        shouldShow
 					      />
 					    );
 				  		})}

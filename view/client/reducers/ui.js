@@ -4,6 +4,8 @@ import {
    SELECT_NODE,
    OPEN_MODAL,
    CLOSE_MODAL,
+   SCROLLED_TO,
+   SCROLLED_TO_REMOVE,
 } from '../constants/ui.js';
 import randomcolor from 'randomColor';
 
@@ -20,6 +22,7 @@ const initialState = {
     'Ala', 'Arg', 'Asn', 'Asp', 'Cys', 'Gln', 'Glu', 'Gly', 'His', 'Ile', 'Leu', 'Lys', 'Met', 'Phe', 'Pro', 'Ser', 'Thr', 'Trp', 'Tyr', 'Val'
   ],
   noMappingColor: 'rgb(125, 237, 186)',
+  currentNumber: false
 };
 
 function uiReducer(state = initialState, action) {
@@ -48,6 +51,16 @@ function uiReducer(state = initialState, action) {
       return {
         ...state,
         selectedNode: action.payload,
+      }
+    case SCROLLED_TO:
+      return {
+        ...state,
+        currentNumber: action.payload
+      }
+    case SCROLLED_TO_REMOVE:
+      return {
+        ...state,
+        currentNumber: false
       }
     default: 
       return state;

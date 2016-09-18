@@ -8,14 +8,14 @@ class ProteinBlock extends React.Component {
   }
 
   render() {
-    const { id, onClick, isSelected, data, color, typeOfProtein } = this.props;
+    const { id, onClick, isSelected, data, color, typeOfProtein, shouldShow } = this.props;
     return (
       <div
         className={`proteinBlockSection ${isSelected ? 'selected' : ''}`}
         id={id}
         onClick={() => onClick(typeOfProtein, id)}
       >
-        <p className="proteinName">{typeOfProtein}</p>
+        <p className={`proteinName ${shouldShow ? 'persist' : ''}`}>{typeOfProtein}</p>
         <div className="proteinSection">
           {Array.from(data).map((each, index) => {
             return (
@@ -31,6 +31,7 @@ class ProteinBlock extends React.Component {
             );
           })}
         </div>
+        <p className={!shouldShow ? 'proteinName' : ''}>{id}</p>
       </div>
     );
   }

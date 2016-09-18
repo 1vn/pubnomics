@@ -3,3 +3,5 @@ export const CLOSE_SIDEBAR = 'CLOSE_SIDEBAR';
 export const SELECT_NODE = 'SELECT_NODE';
 export const OPEN_MODAL = 'OPEN_MODAL';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
+export const SCROLLED_TO = 'SCROLLED_TO';
+export const SCROLLED_TO_REMOVE = 'SCROLLED_TO_REMOVE';
