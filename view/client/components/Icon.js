@@ -9,9 +9,15 @@ const iconMapping = {
   </svg>),
 }
 
-function Icon(props) {
-  const { iconType, ...restOfProps } = props;
-  return React.createElement('svg', { ...restOfProps }, iconMapping[iconType]);
+class Icon extends React.Component {
+	shouldComponentUpdate() {
+		return false;
+	}
+
+	render() {
+	  const { iconType, ...restOfProps } = this.props;
+	  return React.createElement('svg', { ...restOfProps }, iconMapping[iconType]);
+	}
 }
 
 export default Icon;

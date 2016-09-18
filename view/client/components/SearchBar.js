@@ -1,8 +1,15 @@
 import React from 'react';
 import Icon from './Icon';
 
-function SearchBar({ value, onChange, onSearch }) {
-  return (
+
+class SearchBar extends React.Component {
+  shouldComponentUpdate(np) {
+    return this.props.value !== np.value;
+  }
+
+  render() {
+    const { value, onChange, onSearch } = this.props;
+    return (
     <div className="searchBarContainer">
       <input
         type="text"
@@ -29,6 +36,7 @@ function SearchBar({ value, onChange, onSearch }) {
       </span>
     </div>
   );
+  }
 }
 
 export default SearchBar;
