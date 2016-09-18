@@ -160,6 +160,37 @@ func clinVitaeFetch(variant string) VariantDataSource {
 	return vData
 }
 
+func predict(v string) VariantDataSource {
+	vData := VariantDataSource{}
+	vData.Name = "PubnomicsAI"
+
+	change := fmt.Sprintf("%s%s", v[2:5], v[len(v)-3:len(v)])
+	rows, err := app.DB.Query(`
+		select score from heuristics 
+		where lower(change)=lower($1)
+		limit 1
+		`, change)
+
+	if err != nil {
+		log.Println(err)
+		return vData
+	}
+
+	defer rows.Close()
+
+	for rows.Next() {
+		var score int64
+		err = rows.Scan(&score)
+
+		vData.Result = "Pathogenic"
+		if score > 0 {
+			vData.Result = "Benign"
+		}
+	}
+
+	return vData
+}
+
 func (c App) Index(v string) revel.Result {
 
 	data := []*VariantDataSource{}
@@ -169,7 +200,7 @@ func (c App) Index(v string) revel.Result {
 	}
 
 	var wg sync.WaitGroup
-	wg.Add(3)
+	wg.Add(4)
 	go func() {
 		defer wg.Done()
 		vData := clinVarFetch(v)
@@ -185,6 +216,12 @@ func (c App) Index(v string) revel.Result {
 	go func() {
 		defer wg.Done()
 		vData := clinVitaeFetch(v)
+		data = append(data, &vData)
+	}()
+
+	go func() {
+		defer wg.Done()
+		vData := predict(v)
 		data = append(data, &vData)
 	}()
 
