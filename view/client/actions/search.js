@@ -49,7 +49,7 @@ export function submitSearch(searchValue) {
 		dispatch(submitSearchInit());
 		axios({
 			method: 'GET',
-			url: 'http://104.198.1.85:3389/',
+			url: 'http://localhost:9000/',
 			params: {
 				v: searchValue
 			}
